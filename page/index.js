@@ -2,7 +2,7 @@ import koa from 'koa-router';
 
 let app = new koa();
 app.get('/',ctx => {
-    ctx.body = 'Hello Koa index 233';
+    ctx.body = 'Begin From Here';
 }).get('/help',ctx => {
     ctx.body = 'help';
 }).get('/self',ctx => {

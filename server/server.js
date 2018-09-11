@@ -1,3 +1,7 @@
+/**
+ * This is a module Entry
+ * 这个是模块入口文件
+ */
 import index from '../page/index';
 import step from '../page/step';
 
