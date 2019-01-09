@@ -3,13 +3,12 @@ const path = require("path");
 const nodeExternals = require("webpack-node-externals");
 const StartServerPlugin = require("start-server-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-
 const root = path.normalize(`${__dirname}`);
 
 module.exports = {
     entry: ["webpack/hot/poll?1000", "./server/index"],
     watch: true,
-    mode:'development',
+    mode: 'development',
     target: "node",
     externals: [nodeExternals({
         whitelist: ["webpack/hot/poll?1000"]
@@ -18,7 +17,10 @@ module.exports = {
         rules: [{
             test: /\.js?$/,
             exclude: /node_modules/
-        }, ],
+        }, {
+            test: /\.coffee$/,
+            use: ['coffee-loader']
+        }]
     },
     plugins: [
         new CleanWebpackPlugin([path.join(root, '.build')]),

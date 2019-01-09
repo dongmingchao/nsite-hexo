@@ -22,7 +22,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "67373049a4db95f8560e";
+/******/ 	var hotCurrentHash = "52b5a0e18e58823b2c1e";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -797,15 +797,27 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var koa_
 
 /***/ }),
 
-/***/ "./page/step.js":
-/*!**********************!*\
-  !*** ./page/step.js ***!
-  \**********************/
+/***/ "./page/users.coffee":
+/*!***************************!*\
+  !*** ./page/users.coffee ***!
+  \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var koa_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! koa-router */ \"koa-router\");\n/* harmony import */ var koa_router__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(koa_router__WEBPACK_IMPORTED_MODULE_0__);\n\n\nconst app = new koa_router__WEBPACK_IMPORTED_MODULE_0___default.a().get('/',ctx => {\n    ctx.body = 'Hello step';\n}).get('/tt',ctx => {\n    ctx.body = 'step tt';\n}).get('/ss',ctx => {\n    ctx.body = 'step ss';\n}).get('/gg',ctx => {\n    ctx.body = 'step gg';\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (app);\n\n//# sourceURL=webpack:///./page/step.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var koa_joi_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! koa-joi-router */ \"koa-joi-router\");\n/* harmony import */ var koa_joi_router__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(koa_joi_router__WEBPACK_IMPORTED_MODULE_0__);\nvar app, joi;\n\n\n\njoi = koa_joi_router__WEBPACK_IMPORTED_MODULE_0___default.a.Joi;\n\napp = new koa_joi_router__WEBPACK_IMPORTED_MODULE_0___default.a();\n\napp.post('/user/register', {\n  meta: {\n    swagger: {\n      summary: '用户注册',\n      description: '注册',\n      tags: ['用户管理']\n    }\n  },\n  validate: {\n    type: 'json',\n    body: {\n      username: joi.string().alphanum().min(3).max(30).required(),\n      password: joi.string().alphanum().min(6).max(30).required()\n    },\n    output: {\n      200: {\n        body: {\n          id: ''\n        }\n      }\n    }\n  },\n  handler: function(ctx) {\n    return ctx.body = 'step test';\n  }\n});\n\napp.post('/user/login', {\n  meta: {\n    swagger: {\n      summary: '用户登陆',\n      description: '用户验证登陆',\n      tags: ['用户管理']\n    }\n  },\n  validate: {\n    type: 'json',\n    body: {\n      username: joi.string().alphanum().min(3).max(30).required(),\n      password: joi.string().alphanum().min(6).max(30).required()\n    },\n    output: {\n      200: {\n        body: {\n          id: 'ba ba ba'\n        }\n      }\n    }\n  },\n  handler: function(ctx) {\n    return ctx.body = 'user id';\n  }\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (app);\n\n\n//# sourceURL=webpack:///./page/users.coffee?");
+
+/***/ }),
+
+/***/ "./server/api.js":
+/*!***********************!*\
+  !*** ./server/api.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var koa_joi_router_docs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! koa-joi-router-docs */ \"koa-joi-router-docs\");\n/* harmony import */ var koa_joi_router_docs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(koa_joi_router_docs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var koa_joi_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! koa-joi-router */ \"koa-joi-router\");\n/* harmony import */ var koa_joi_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(koa_joi_router__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _page_users_coffee__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../page/users.coffee */ \"./page/users.coffee\");\n\n\n\n\n/**\n * Define routes\n */\nconst router = koa_joi_router__WEBPACK_IMPORTED_MODULE_1___default()();\n\n// Get /user/:_id\n// router.get('/user/:_id', {\n//   meta: {\n//     swagger: {\n//       summary: 'Get User Info',\n//       description: `Note: \\nSensitive data can only be viewed by the \\`corresponding user\\` or \\`Admin\\`.`,\n//       tags: ['users']\n//     }\n//   },\n//   validate: {\n//     params: {\n//       _id: Joi.string().alphanum().max(24).description('User id').required()\n//     },\n//     output: {\n//       '200-299': {\n//         body: Joi.object({\n//           userId: Joi.string().description('User id')\n//         }).options({\n//           allowUnknown: true\n//         }).description('User object')\n//       }\n//     }\n//   },\n//   handler: async ctx => {\n//     console.log('getUser...')\n//     ctx.body = {\n//       userId: ctx.params._id\n//     }\n//   }\n// });\n//\n// // POST /signup\n// router.post('/signup', {\n//   meta: {\n//     swagger: {\n//       summary: 'User Signup',\n//       description: 'Signup with username and password.',\n//       tags: ['users']\n//     }\n//   },\n//   validate: {\n//     type: 'json',\n//     body: {\n//       username: Joi.string().alphanum().min(3).max(30).required(),\n//       password: Joi.string().alphanum().min(6).max(30).required()\n//     },\n//     output: {\n//       200: {\n//         body: {\n//           userId: Joi.string().description('Newly created user id')\n//         }\n//       }\n//     }\n//   },\n//   handler: async ctx => {\n//     ctx.body = {\n//       userId: ctx.body.username\n//     }\n//   }\n// });\n\n/**\n * Generate Swagger json from the router object\n */\nconst generator = new koa_joi_router_docs__WEBPACK_IMPORTED_MODULE_0__[\"SwaggerAPI\"]();\n\ngenerator.addJoiRouter(_page_users_coffee__WEBPACK_IMPORTED_MODULE_2__[\"default\"]);\ngenerator.addJoiRouter(router);\n\nconst spec = generator.generateSpec({\n  info: {\n    title: 'Example API',\n    description: 'API for creating and editing examples.',\n    version: '1.1'\n  },\n  basePath: '/',\n  tags: [{\n    name: '用户管理',\n    description: '对基础用户的注册/登陆'\n  }],\n}, { \n  defaultResponses: {} // Custom default responses if you don't like default 200\n});\n\n/**\n * Swagger JSON API\n */\nrouter.get('/_api.json', async ctx => {\n  ctx.body = JSON.stringify(spec, null, '  ')\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (router);\n\n//# sourceURL=webpack:///./server/api.js?");
 
 /***/ }),
 
@@ -828,7 +840,7 @@ eval("/**\n * This File is NOT need to Edit\n * 这个文件不需要被编辑\n
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _page_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../page/index */ \"./page/index.js\");\n/* harmony import */ var _page_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../page/step */ \"./page/step.js\");\n/**\n * This is a module Entry\n * 这个是模块入口文件\n */\n\n\n\nconst Koa = __webpack_require__(/*! koa */ \"koa\");\nconst Router = __webpack_require__(/*! koa-router */ \"koa-router\");\n \nconst app = new Koa();\nconst router = new Router();\n\nrouter.use('/',_page_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].routes());\nrouter.use('/step',_page_step__WEBPACK_IMPORTED_MODULE_1__[\"default\"].routes());\n\napp.use(router.routes()).use(router.allowedMethods());\n/* harmony default export */ __webpack_exports__[\"default\"] = (app);\n\n//# sourceURL=webpack:///./server/server.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var koa_static__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! koa-static */ \"koa-static\");\n/* harmony import */ var koa_static__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(koa_static__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api */ \"./server/api.js\");\n/* harmony import */ var _page_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../page/index */ \"./page/index.js\");\n/* harmony import */ var _page_users_coffee__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../page/users.coffee */ \"./page/users.coffee\");\n/**\n * This is a module Entry\n * 这个是模块入口文件\n */\n\n\n\n\n\nconst Koa = __webpack_require__(/*! koa */ \"koa\");\nconst Router = __webpack_require__(/*! koa-router */ \"koa-router\");\n \nconst app = new Koa();\nconst router = new Router();\n\nrouter.use('/',_page_index__WEBPACK_IMPORTED_MODULE_2__[\"default\"].routes());\nrouter.use(_page_users_coffee__WEBPACK_IMPORTED_MODULE_3__[\"default\"].middleware());\nrouter.use(_api__WEBPACK_IMPORTED_MODULE_1__[\"default\"].middleware());\n\napp.use(koa_static__WEBPACK_IMPORTED_MODULE_0___default()('assets'));\napp.use(koa_static__WEBPACK_IMPORTED_MODULE_0___default()('node_modules'));\napp.use(router.routes()).use(router.allowedMethods());\n/* harmony default export */ __webpack_exports__[\"default\"] = (app);\n\n//# sourceURL=webpack:///./server/server.js?");
 
 /***/ }),
 
@@ -854,6 +866,28 @@ eval("module.exports = require(\"koa\");\n\n//# sourceURL=webpack:///external_%2
 
 /***/ }),
 
+/***/ "koa-joi-router":
+/*!*********************************!*\
+  !*** external "koa-joi-router" ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa-joi-router\");\n\n//# sourceURL=webpack:///external_%22koa-joi-router%22?");
+
+/***/ }),
+
+/***/ "koa-joi-router-docs":
+/*!**************************************!*\
+  !*** external "koa-joi-router-docs" ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa-joi-router-docs\");\n\n//# sourceURL=webpack:///external_%22koa-joi-router-docs%22?");
+
+/***/ }),
+
 /***/ "koa-router":
 /*!*****************************!*\
   !*** external "koa-router" ***!
@@ -862,6 +896,17 @@ eval("module.exports = require(\"koa\");\n\n//# sourceURL=webpack:///external_%2
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"koa-router\");\n\n//# sourceURL=webpack:///external_%22koa-router%22?");
+
+/***/ }),
+
+/***/ "koa-static":
+/*!*****************************!*\
+  !*** external "koa-static" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa-static\");\n\n//# sourceURL=webpack:///external_%22koa-static%22?");
 
 /***/ })
 
