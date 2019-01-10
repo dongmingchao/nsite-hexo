@@ -14,6 +14,8 @@
     "koa-joi-router": "^5.1.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
+    "mysql2": "^1.6.4",
+    "sequelize": "^4.42.0",
     "start-server-webpack-plugin": "^2.1.2",
     "webpack-node-externals": "^1.5.4"
   },
