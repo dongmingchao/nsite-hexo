@@ -1,11 +1,5 @@
-import sequlize from 'sequelize'
+import User from './users.coffee'
+import db from './config.coffee'
 
-db = new sequlize 'mokiri', 'root', 'cxz,./123',
-	host: 'localhost'
-	dialect: 'mysql'
-	pool:
-		max: 5
-		min: 0
-		idle: 10000
-
-export default db
+export default
+	User: new User db

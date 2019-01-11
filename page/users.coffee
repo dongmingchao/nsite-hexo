@@ -1,5 +1,6 @@
 import Router from 'koa-joi-router'
 joi = Router.Joi
+import models from '../model/index'
 
 app = new Router()
 
@@ -19,7 +20,7 @@ app.post '/user/register',
                 body:
                     id:''
     handler: (ctx) ->
-        ctx.body = 'step test'
+        ctx.body = models.User.add ctx.request.body
 
 app.post '/user/login',
     meta:

@@ -1,23 +1,22 @@
-import db from './index.coffee'
+import db from './config.coffee'
 import crypto from 'crypto'
-
-model = db.define 'user',
-	id:
-		type: db.UUID
-		defaultValue: db.UUIDV4
-		comment: '用户唯一标志'
-	account:
-		type: db.STRING
-		comment: '账号/邮箱'
-		primaryKey: true
-	password:
-		type: db.STRING
-		comment: '密码'
-, comment:'用户表'
-
+import {DataTypes} from 'sequelize'
 class User
-	@model = model
-	@passwordEncrypt: (pass) ->
+	constructor: (db) ->
+		@model = db.define 'user',
+			id:
+				type: DataTypes.UUID
+				defaultValue: DataTypes.UUIDV4
+				comment: '用户唯一标志'
+			account:
+				type: DataTypes.STRING
+				comment: '账号/邮箱'
+				primaryKey: true
+			password:
+				type: DataTypes.STRING
+				comment: '密码'
+		, comment: '用户表'
+	passwordEncrypt: (pass) ->
 		md5 = crypto.createHash 'md5'
 		md5.update pass
 		pass = md5.digest 'hex'
@@ -28,10 +27,15 @@ class User
 		md5.update pass
 		pass = md5.digest 'hex'
 		return pass
-	@add: ({name,pass}) ->
+	add: ({name, pass}) ->
+		res = status: 'success'
+		user = @model.findByPk name
+		if user?
+			res.status = 'error'
+			res.error = 'user registered'
+			return res
 		pass = @passwordEncrypt pass
 		await @model.sync()
-		await @model.create {name,pass}
+		return await @model.create {name, pass}
 
-	instance: (name)->
-		return await @model.findByPk name
+export default User
